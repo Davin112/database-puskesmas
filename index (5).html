@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Puskesmas Bina Sehat</title>
+  <link rel="stylesheet" href="/static/style.css?v=1.3">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Step 0: Halaman Awal -->
+    <div id="step-start" class="card active">
+      <div style="font-size: 60px;">🏥</div>
+      <h1 style="color: #22c55e;">Puskesmas Bina Sehat</h1>
+      <p>Silakan isi data sesuai kartu identitas</p>
+      <button class="btn-main" onclick="goToStep('step-start', 'step-input')">Mulai Daftar</button>
+      <p style="margin-top: 20px; font-size: 14px; color: #666;">Jam Operasional: Senin - Jum'at | 07.00 - 22.00 WIB</p>
+    </div>
+
+    <!-- Step 1: Nama + Umur -->
+    <div id="step-input" class="card">
+        <h2>Identitas Pasien</h2>
+
+        <div class="form-group">
+            <label for="nama">Nama Pasien:</label>
+            <input type="text" id="nama" placeholder="Contoh: Abid Rizky">
+        </div>
+
+        <div class="form-group">
+            <label for="umur">Umur (1-100):</label>
+            <input type="number" id="umur" placeholder="Contoh: 20">
+        </div>
+
+        <button class="btn-main" onclick="checkIdentity()">Lanjut</button>
+        <button class="btn-grey" onclick="location.reload()">Keluar</button>
+    </div>
+
+    <!-- Step 2: Jalur + ID -->
+    <div id="step-jalur" class="card">
+        <h2>Data Jalur Pendaftaran</h2>
+
+        <div class="form-group">
+            <label for="jalur">Pilih Jalur</label>
+            <select id="jalur">
+                <option value="UM">Umum</option>
+                <option value="BPJS">BPJS</option>
+                <option value="ASUR">Asuransi</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label id="labelId" for="id_pasien">NIK</label>
+            <input type="text" id="id_pasien" placeholder="5 digit NIK">
+        </div>
+
+        <button class="btn-main" onclick="checkJalur()">Lanjut</button>
+        <button class="btn-grey" onclick="goToStep('step-jalur', 'step-input')">Kembali</button>
+    </div>
+
+    <!-- Step 3: Darurat -->
+    <div id="step-emergency" class="card">
+        <h2>Apakah Pasien dalam Kondisi Darurat?</h2>
+        <p>Pilih YA jika pasien butuh penanganan segera</p>
+        <button class="btn-red" onclick="setEmergency(true)">YA, DARURAT</button>
+        <button class="btn-grey" onclick="setEmergency(false)">TIDAK</button>
+    </div>
+
+    <!-- Step 4: Gejala -->
+    <div id="step-symptoms" class="card">
+        <h2>Pilih Gejala</h2>
+        <div id="list-gejala"></div>
+        <button class="btn-main" onclick="finalProcess()">Cetak Struk</button>
+        <button class="btn-grey" onclick="goToStep('step-symptoms', 'step-emergency')">Kembali</button>
+    </div>
+
+    <!-- Step 5: Hasil -->
+    <div id="step-result" class="card">
+      <div id="printable-area" class="receipt-frame">
+        <h3>PUSKESMAS BINA SEHAT</h3>
+        <hr>
+        <div><span>Pasien:</span> <strong id="res-nama"></strong></div>
+        <div><span>Poli:</span> <strong id="res-poli"></strong></div>
+        <div class="number-tag" id="res-nomor"></div>
+        <div id="qr-code-box" class="qr-center"></div>
+        <p>Waktu: <span id="res-date"></span></p>
+      </div>
+      <button class="btn-main" onclick="location.reload()">Selesai</button>
+    </div>
+
+  </div>
+  <script src="/static/script.js?v=1.3"></script>
+</body>
+</html>
